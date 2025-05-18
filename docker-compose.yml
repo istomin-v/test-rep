@@ -1,0 +1,17 @@
+services:
+  hunyuan3d:
+    image: hunyuan3d:2
+    container_name: hunyuan3d
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "$HUNYUAN_PORT:8080"
+    env_file:
+      - .env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
