@@ -37,5 +37,13 @@ WORKDIR /usr/src/app
 
 COPY ./Hunyuan3D-2/. ./.
 
+RUN pip3 install -r requirements.txt \
+    && pip3 install . \
+    && cd hy3dgen/texgen/custom_rasterizer \
+    && python3.11 setup.py install \
+    && cd ../../.. \
+    && cd hy3dgen/texgen/differentiable_renderer \
+    && python3.11 setup.py install
+
 COPY entrypoint.sh ./entrypoint.sh
 ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
